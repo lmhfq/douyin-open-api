@@ -13,18 +13,6 @@ use Lmh\DouyinOpenApi\Service\GoodLife\Application;
 class Factory
 {
     /**
-     * @param string $name
-     * @param array $config
-     * @return mixed
-     */
-    public static function make(string $name, array $config): ServiceContainer
-    {
-        $namespace = Str::studly($name);
-        $application = "\\Lmh\\DouyinOpenApi\\Service\\{$namespace}\\Application";
-        return new $application($config);
-    }
-
-    /**
      * Dynamically pass methods to the application.
      *
      * @param string $name
@@ -35,5 +23,17 @@ class Factory
     public static function __callStatic(string $name, array $arguments)
     {
         return self::make($name, ...$arguments);
+    }
+
+    /**
+     * @param string $name
+     * @param array $config
+     * @return mixed
+     */
+    public static function make(string $name, array $config): ServiceContainer
+    {
+        $namespace = Str::studly($name);
+        $application = "\\Lmh\\DouyinOpenApi\\Service\\{$namespace}\\Application";
+        return new $application($config);
     }
 }

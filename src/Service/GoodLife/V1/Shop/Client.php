@@ -7,7 +7,7 @@ declare(strict_types=1);
  * Time: 下午3:23
  */
 
-namespace Lmh\DouyinOpenApi\Service\GoodLife\Shop;
+namespace Lmh\DouyinOpenApi\Service\GoodLife\V1\Shop;
 
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -21,9 +21,10 @@ class Client extends BaseClient
      * @throws GuzzleException
      * @author lmh
      */
-    public function query(array $params): array
+    public function poiQuery(array $params): array
     {
-        $url = self::classUrl();
+
+        $url = self::url() . '/poi/query';
         return $this->httpGet($url, $params);
     }
 }

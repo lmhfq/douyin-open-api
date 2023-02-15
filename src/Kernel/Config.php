@@ -11,6 +11,7 @@
 
 namespace Lmh\DouyinOpenApi\Kernel;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 /**
@@ -30,5 +31,11 @@ class Config extends Collection
     public function __get($key)
     {
         return $this->get($key);
+    }
+
+
+    public function get($key, $default = null)
+    {
+        return Arr::get($this->items, $key, $default);
     }
 }

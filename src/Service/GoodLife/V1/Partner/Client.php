@@ -6,7 +6,8 @@ declare(strict_types=1);
  * Date: 2022/6/9
  * Time: 下午3:23
  */
-namespace Lmh\DouyinOpenApi\Service\GoodLife\Partner;
+
+namespace Lmh\DouyinOpenApi\Service\GoodLife\V1\Partner;
 
 
 use GuzzleHttp\Exception\GuzzleException;

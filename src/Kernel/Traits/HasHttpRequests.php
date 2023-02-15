@@ -18,21 +18,6 @@ trait HasHttpRequests
     use ResponseCastable;
 
     /**
-     * @var \GuzzleHttp\ClientInterface
-     */
-    protected $httpClient;
-
-    /**
-     * @var array
-     */
-    protected $middlewares = [];
-
-    /**
-     * @var \GuzzleHttp\HandlerStack
-     */
-    protected $handlerStack;
-
-    /**
      * @var array
      */
     protected static $defaults = [
@@ -40,13 +25,25 @@ trait HasHttpRequests
             CURLOPT_IPRESOLVE => CURL_IPRESOLVE_V4,
         ],
     ];
+    /**
+     * @var \GuzzleHttp\ClientInterface
+     */
+    protected $httpClient;
+    /**
+     * @var array
+     */
+    protected $middlewares = [];
+    /**
+     * @var \GuzzleHttp\HandlerStack
+     */
+    protected $handlerStack;
 
     /**
      * Set guzzle default settings.
      *
      * @param array $defaults
      */
-    public static function setDefaultOptions($defaults = [])
+    public static function setDefaultOptions(array $defaults = [])
     {
         self::$defaults = $defaults;
     }
@@ -62,37 +59,9 @@ trait HasHttpRequests
     }
 
     /**
-     * Set GuzzleHttp\Client.
-     *
-     * @param \GuzzleHttp\ClientInterface $httpClient
-     *
-     * @return $this
-     */
-    public function setHttpClient(ClientInterface $httpClient)
-    {
-        $this->httpClient = $httpClient;
-
-        return $this;
-    }
-
-    /**
-     * Return GuzzleHttp\ClientInterface instance.
-     *
-     * @return ClientInterface
-     */
-    public function getHttpClient(): ClientInterface
-    {
-        if (!($this->httpClient instanceof ClientInterface)) {
-            $this->httpClient = new Client();
-        }
-
-        return $this->httpClient;
-    }
-
-    /**
      * Add a middleware.
      *
-     * @param callable    $middleware
+     * @param callable $middleware
      * @param null|string $name
      *
      * @return $this
@@ -104,7 +73,6 @@ trait HasHttpRequests
         } else {
             array_push($this->middlewares, $middleware);
         }
-
         return $this;
     }
 
@@ -146,18 +114,6 @@ trait HasHttpRequests
     }
 
     /**
-     * @param \GuzzleHttp\HandlerStack $handlerStack
-     *
-     * @return $this
-     */
-    public function setHandlerStack(HandlerStack $handlerStack): HasHttpRequests
-    {
-        $this->handlerStack = $handlerStack;
-
-        return $this;
-    }
-
-    /**
      * Build a handler stack.
      *
      * @return \GuzzleHttp\HandlerStack
@@ -175,6 +131,18 @@ trait HasHttpRequests
         }
 
         return $this->handlerStack;
+    }
+
+    /**
+     * @param \GuzzleHttp\HandlerStack $handlerStack
+     *
+     * @return $this
+     */
+    public function setHandlerStack(HandlerStack $handlerStack): HasHttpRequests
+    {
+        $this->handlerStack = $handlerStack;
+
+        return $this;
     }
 
     /**
@@ -197,5 +165,33 @@ trait HasHttpRequests
         }
 
         return $options;
+    }
+
+    /**
+     * Return GuzzleHttp\ClientInterface instance.
+     *
+     * @return ClientInterface
+     */
+    public function getHttpClient(): ClientInterface
+    {
+        if (!($this->httpClient instanceof ClientInterface)) {
+            $this->httpClient = new Client();
+        }
+
+        return $this->httpClient;
+    }
+
+    /**
+     * Set GuzzleHttp\Client.
+     *
+     * @param \GuzzleHttp\ClientInterface $httpClient
+     *
+     * @return $this
+     */
+    public function setHttpClient(ClientInterface $httpClient)
+    {
+        $this->httpClient = $httpClient;
+
+        return $this;
     }
 }

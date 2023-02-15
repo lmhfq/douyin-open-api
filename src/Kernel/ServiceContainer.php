@@ -2,6 +2,7 @@
 
 namespace Lmh\DouyinOpenApi\Kernel;
 
+use Illuminate\Support\Collection;
 use Lmh\DouyinOpenApi\Kernel\Providers\ConfigServiceProvider;
 use Lmh\DouyinOpenApi\Kernel\Providers\HttpClientServiceProvider;
 use Lmh\DouyinOpenApi\Kernel\Providers\LogServiceProvider;
@@ -9,6 +10,7 @@ use Pimple\Container;
 
 /**
  * Class ServiceContainer
+ * @property Collection $config
  */
 class ServiceContainer extends Container
 {

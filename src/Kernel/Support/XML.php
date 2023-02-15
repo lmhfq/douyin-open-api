@@ -29,9 +29,41 @@ class XML
     }
 
     /**
+     * Object to array.
+     *
+     *
+     * @param SimpleXMLElement $obj
+     *
+     * @return array
+     */
+    protected static function normalize($obj)
+    {
+        $result = null;
+
+        if (is_object($obj)) {
+            $obj = (array)$obj;
+        }
+
+        if (is_array($obj)) {
+            foreach ($obj as $key => $value) {
+                $res = self::normalize($value);
+                if (('@attributes' === $key) && ($key)) {
+                    $result = $res; // @codeCoverageIgnore
+                } else {
+                    $result[$key] = $res;
+                }
+            }
+        } else {
+            $result = $obj;
+        }
+
+        return $result;
+    }
+
+    /**
      * XML encode.
      *
-     * @param mixed  $data
+     * @param mixed $data
      * @param string $root
      * @param string $item
      * @param string $attr
@@ -45,7 +77,8 @@ class XML
         $item = 'item',
         $attr = '',
         $id = 'id'
-    ) {
+    )
+    {
         if (is_array($attr)) {
             $_attr = [];
 
@@ -66,53 +99,9 @@ class XML
     }
 
     /**
-     * Build CDATA.
-     *
-     * @param string $string
-     *
-     * @return string
-     */
-    public static function cdata($string)
-    {
-        return sprintf('<![CDATA[%s]]>', $string);
-    }
-
-    /**
-     * Object to array.
-     *
-     *
-     * @param SimpleXMLElement $obj
-     *
-     * @return array
-     */
-    protected static function normalize($obj)
-    {
-        $result = null;
-
-        if (is_object($obj)) {
-            $obj = (array) $obj;
-        }
-
-        if (is_array($obj)) {
-            foreach ($obj as $key => $value) {
-                $res = self::normalize($value);
-                if (('@attributes' === $key) && ($key)) {
-                    $result = $res; // @codeCoverageIgnore
-                } else {
-                    $result[$key] = $res;
-                }
-            }
-        } else {
-            $result = $obj;
-        }
-
-        return $result;
-    }
-
-    /**
      * Array to XML.
      *
-     * @param array  $data
+     * @param array $data
      * @param string $item
      * @param string $id
      *
@@ -131,7 +120,7 @@ class XML
             $xml .= "<{$key}{$attr}>";
 
             if ((is_array($val) || is_object($val))) {
-                $xml .= self::data2Xml((array) $val, $item, $id);
+                $xml .= self::data2Xml((array)$val, $item, $id);
             } else {
                 $xml .= is_numeric($val) ? $val : self::cdata($val);
             }
@@ -140,5 +129,17 @@ class XML
         }
 
         return $xml;
+    }
+
+    /**
+     * Build CDATA.
+     *
+     * @param string $string
+     *
+     * @return string
+     */
+    public static function cdata($string)
+    {
+        return sprintf('<![CDATA[%s]]>', $string);
     }
 }

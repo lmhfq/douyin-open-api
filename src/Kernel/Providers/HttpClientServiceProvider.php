@@ -1,4 +1,5 @@
 <?php
+
 namespace Lmh\DouyinOpenApi\Kernel\Providers;
 
 use GuzzleHttp\Client;

@@ -6,10 +6,9 @@
  * Time: 16:25
  */
 
-namespace Lmh\DouyinOpenApi\Service\GoodLife\Auth;
+namespace Lmh\DouyinOpenApi\Service\GoodLife\V1\Auth;
 
 
-use Lmh\DouyinOpenApi\Service\GoodLife\Auth\AccessToken;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 

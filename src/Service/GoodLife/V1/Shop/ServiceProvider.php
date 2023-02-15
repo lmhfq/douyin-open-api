@@ -7,7 +7,7 @@ declare(strict_types=1);
  * Time: 下午3:23
  */
 
-namespace Lmh\DouyinOpenApi\Service\Transfer\Batches;
+namespace Lmh\DouyinOpenApi\Service\GoodLife\V1\Shop;
 
 
 use Pimple\Container;
@@ -20,7 +20,7 @@ class ServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $app)
     {
-        $app['transfer'] = function ($app) {
+        $app['shop'] = function ($app) {
             return new Client($app);
         };
     }

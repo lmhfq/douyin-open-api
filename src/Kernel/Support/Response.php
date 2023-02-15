@@ -16,18 +16,6 @@ use function preg_replace;
 class Response extends GuzzleResponse
 {
     /**
-     * @return string
-     */
-    public function getBodyContents()
-    {
-        $this->getBody()->rewind();
-        $contents = $this->getBody()->getContents();
-        $this->getBody()->rewind();
-
-        return $contents;
-    }
-
-    /**
      * @param ResponseInterface $response
      *
      * @return Response
@@ -44,13 +32,12 @@ class Response extends GuzzleResponse
     }
 
     /**
-     * Build to json.
+     * Get collection data.
      *
-     * @return string
      */
-    public function toJson(): string
+    public function toCollection(): Collection
     {
-        return json_encode($this->toArray());
+        return new Collection($this->toArray());
     }
 
     /**
@@ -76,12 +63,25 @@ class Response extends GuzzleResponse
     }
 
     /**
-     * Get collection data.
+     * @param string $content
      *
+     * @return string
      */
-    public function toCollection(): Collection
+    protected function removeControlCharacters(string $content): string
     {
-        return new Collection($this->toArray());
+        return preg_replace('/[\x00-\x1F\x80-\x9F]/u', '', $content);
+    }
+
+    /**
+     * @return string
+     */
+    public function getBodyContents()
+    {
+        $this->getBody()->rewind();
+        $contents = $this->getBody()->getContents();
+        $this->getBody()->rewind();
+
+        return $contents;
     }
 
     /**
@@ -93,20 +93,20 @@ class Response extends GuzzleResponse
     }
 
     /**
+     * Build to json.
+     *
+     * @return string
+     */
+    public function toJson(): string
+    {
+        return json_encode($this->toArray());
+    }
+
+    /**
      * @return string
      */
     public function __toString()
     {
         return $this->getBodyContents();
-    }
-
-    /**
-     * @param string $content
-     *
-     * @return string
-     */
-    protected function removeControlCharacters(string $content): string
-    {
-        return preg_replace('/[\x00-\x1F\x80-\x9F]/u', '', $content);
     }
 }

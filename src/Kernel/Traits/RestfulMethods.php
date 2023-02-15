@@ -1,4 +1,5 @@
 <?php
+
 namespace Lmh\DouyinOpenApi\Kernel\Traits;
 
 use Illuminate\Support\Str;
@@ -6,33 +7,28 @@ use Illuminate\Support\Str;
 trait RestfulMethods
 {
     /**
-     * @param $id
      * @return string
+     * @throws \ReflectionException
      */
-    public function instanceUrl($id): string
+    public static function url(): string
     {
-        return self::classUrl() . '/' . $id;
-    }
-
-    /**
-     * @return string
-     */
-    public static function classUrl(): string
-    {
-        return '/v1/' . static::className();
+        return static::className();
     }
 
 
     /**
      * @return string
+     * @throws \ReflectionException
      */
     public static function className(): string
     {
         $className = get_called_class();
-        $classes = explode('\\', $className);
-        $classes = array_slice($classes, 3, -1);
+
+        $reflectionClass = new \ReflectionClass($className);
+        $classes = explode('\\', $reflectionClass->getNamespaceName());
+        $classes = array_slice($classes, 3);
         foreach ($classes as $key => $val) {
-            $classes[$key] = $key == count($classes) - 1 ? Str::plural(Str::snake($val)) : strtolower($val);
+            $classes[$key] = $key == count($classes) - 1 ? Str::snake($val) : strtolower($val);
         }
         return implode('/', $classes);
     }
