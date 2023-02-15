@@ -14,7 +14,7 @@ class AccessToken extends AbstractAccessToken
     public function getToken(bool $refresh = false): array
     {
         return [
-            'access_token' => 'clt.15257f34af3ef108dac4b87569b9fa4bJXxRdi09nH86NtWHUsYFO3NlDoH1'
+            'access_token' => 'clt.6810ca0f41a54c4d79fa3a91c7841921RoOOkCR2XkOyOKd14KNHgNcNj2Yd'
         ];
     }
 

@@ -52,13 +52,10 @@ class Response extends GuzzleResponse
         if (false !== stripos($this->getHeaderLine('Content-Type'), 'xml') || 0 === stripos($content, '<xml')) {
             return XML::parse($content);
         }
-
         $array = json_decode($content, true);
-
         if (JSON_ERROR_NONE === json_last_error()) {
             return (array)$array;
         }
-
         return [];
     }
 

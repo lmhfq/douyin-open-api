@@ -24,7 +24,7 @@ class LogServiceProvider implements ServiceProviderInterface
      */
     public function register(Container $pimple)
     {
-        $pimple['logger']  = function ($app) {
+        $pimple['logger'] = function ($app) {
             $config = $this->formatLogConfig($app);
             if (!empty($config)) {
 
@@ -55,7 +55,7 @@ class LogServiceProvider implements ServiceProviderInterface
                 'channels' => [
                     'single' => [
                         'driver' => 'single',
-                        'path' => $app['config']->get('log.file') ?: \sys_get_temp_dir().'/logs/douyin.log',
+                        'path' => $app['config']->get('log.file') ?: \sys_get_temp_dir() . '/logs/douyin.log',
                         'level' => $app['config']->get('log.level', 'debug'),
                     ],
                 ],
