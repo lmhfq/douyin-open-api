@@ -23,7 +23,7 @@
         "guzzlehttp/guzzle": "^6.5",
         "pimple/pimple": "^3.0",
         "illuminate/support": "^5.8",
-        "monolog/monolog": "^1.22 || ^2.0",
+        "monolog/monolog": "^1.22 || ^2.0"
 
     },
     "require-dev": {
