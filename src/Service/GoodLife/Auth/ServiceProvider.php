@@ -6,7 +6,7 @@
  * Time: 16:25
  */
 
-namespace Lmh\DouyinOpenApi\Service\GoodLife\V1\Auth;
+namespace Lmh\DouyinOpenApi\Service\GoodLife\Auth;
 
 
 use Pimple\Container;

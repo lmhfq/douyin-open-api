@@ -1,6 +1,6 @@
 <?php
 
-namespace Lmh\DouyinOpenApi\Service\GoodLife\V1\Auth;
+namespace Lmh\DouyinOpenApi\Service\GoodLife\Auth;
 
 use Lmh\DouyinOpenApi\Kernel\AbstractAccessToken;
 
